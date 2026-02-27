@@ -30,6 +30,7 @@ const getDatabase = () => {
     db.exec(`
       CREATE INDEX IF NOT EXISTS idx_items_name     ON items(name);
       CREATE INDEX IF NOT EXISTS idx_items_category ON items(category);
+      CREATE INDEX IF NOT EXISTS idx_items_price    ON items(price);
     `);
   }
   return db;

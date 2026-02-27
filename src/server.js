@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 const swaggerUi = require("swagger-ui-express");
 const { swaggerSpec } = require("./swagger");
 const itemsRouter = require("./routes/items");
@@ -8,8 +10,18 @@ const { getDatabase } = require("./database");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors());
 app.use(express.json());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: "Too many requests, please try again later." },
+});
+app.use("/items", apiLimiter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

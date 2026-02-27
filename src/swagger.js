@@ -69,6 +69,25 @@ const options = {
             },
           },
         },
+        ItemInput: {
+          type: "object",
+          required: ["name", "category", "price"],
+          properties: {
+            name: { type: "string", example: "Premium Widget", maxLength: 200 },
+            category: { type: "string", example: "Electronics" },
+            price: {
+              type: "number",
+              format: "float",
+              example: 29.99,
+              minimum: 0.01,
+            },
+            description: {
+              type: "string",
+              example:
+                "High-quality premium widget in the electronics category.",
+            },
+          },
+        },
         ErrorResponse: {
           type: "object",
           properties: {

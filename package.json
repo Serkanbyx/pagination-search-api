@@ -8,7 +8,13 @@
     "seed": "node src/seed.js",
     "dev": "node --watch src/server.js"
   },
-  "keywords": ["pagination", "search", "api", "sqlite", "swagger"],
+  "keywords": [
+    "pagination",
+    "search",
+    "api",
+    "sqlite",
+    "swagger"
+  ],
   "author": {
     "name": "Serkanby",
     "url": "https://serkanbayraktar.com/"
@@ -22,6 +28,8 @@
     "better-sqlite3": "^12.6.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }
