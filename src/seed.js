@@ -94,4 +94,8 @@ const seed = () => {
   console.log(`Seeded ${TOTAL_ITEMS} items into the database.`);
 };
 
-seed();
+if (require.main === module) {
+  seed();
+}
+
+module.exports = { seed };

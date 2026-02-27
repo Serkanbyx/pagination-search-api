@@ -11,7 +11,10 @@ const options = {
       contact: { name: "API Support" },
     },
     servers: [
-      { url: "http://localhost:3000", description: "Local" },
+      {
+        url: process.env.RENDER_EXTERNAL_URL || "http://localhost:3000",
+        description: process.env.RENDER_EXTERNAL_URL ? "Production" : "Local",
+      },
     ],
     components: {
       schemas: {

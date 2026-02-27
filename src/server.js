@@ -40,7 +40,9 @@ app.use((err, _req, res, _next) => {
 const db = getDatabase();
 const count = db.prepare("SELECT COUNT(*) as count FROM items").get();
 if (count.count === 0) {
-  console.log("No items found. Run `npm run seed` to populate the database.");
+  console.log("No items found. Auto-seeding database...");
+  const { seed } = require("./seed");
+  seed();
 }
 
 app.listen(PORT, () => {
