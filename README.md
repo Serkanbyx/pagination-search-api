@@ -252,20 +252,20 @@ const MAX_LIMIT = 200;    // Maximum items per page
 
 ## License
 
-This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Developer
 
-**Serkan Bayraktar**
+**Serkanby**
 
-- [Website](https://serkanbayraktar.com/)
-- [GitHub](https://github.com/Serkanbyx)
-- [Email](mailto:serkanbyx1@gmail.com)
+- Website: [serkanbayraktar.com](https://serkanbayraktar.com/)
+- GitHub: [@Serkanbyx](https://github.com/Serkanbyx)
+- Email: [serkanbyx1@gmail.com](mailto:serkanbyx1@gmail.com)
 
 ## Contact
 
 - [Open an Issue](https://github.com/Serkanbyx/Pagination-Search-API/issues)
-- Email: serkanbyx1@gmail.com
+- Email: [serkanbyx1@gmail.com](mailto:serkanbyx1@gmail.com)
 - Website: [serkanbayraktar.com](https://serkanbayraktar.com/)
 
 ---

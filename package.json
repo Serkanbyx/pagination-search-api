@@ -9,8 +9,11 @@
     "dev": "node --watch src/server.js"
   },
   "keywords": ["pagination", "search", "api", "sqlite", "swagger"],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Serkanby",
+    "url": "https://serkanbayraktar.com/"
+  },
+  "license": "MIT",
   "type": "commonjs",
   "engines": {
     "node": "22.x"

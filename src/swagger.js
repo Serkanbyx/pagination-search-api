@@ -8,7 +8,10 @@ const options = {
       version: "1.0.0",
       description:
         "A RESTful API demonstrating pagination with `limit`/`skip` and regex-powered search over an SQLite database.",
-      contact: { name: "API Support" },
+      contact: {
+        name: "Serkanby",
+        url: "https://serkanbayraktar.com/",
+      },
     },
     servers: [
       {
