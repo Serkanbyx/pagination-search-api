@@ -95,7 +95,8 @@ This uses Node.js built-in `--watch` flag to auto-restart on file changes.
 | GET | `/items` | List items with pagination, search & sort |
 | GET | `/items/:id` | Get a single item by ID |
 | POST | `/items` | Create a new item |
-| PUT | `/items/:id` | Update an existing item |
+| PUT | `/items/:id` | Replace an existing item (all fields) |
+| PATCH | `/items/:id` | Partially update an item (any subset of fields) |
 | DELETE | `/items/:id` | Delete an item |
 | GET | `/items/categories/list` | Get all distinct categories |
 | GET | `/api-docs` | Interactive Swagger UI documentation |
@@ -162,7 +163,7 @@ Content-Type: application/json
   "description": "A high-quality premium widget."
 }
 
-# Update an existing item
+# Replace an existing item (all fields required)
 PUT /items/1
 Content-Type: application/json
 
@@ -173,11 +174,19 @@ Content-Type: application/json
   "description": "Updated description."
 }
 
+# Partially update an item (only the fields you want to change)
+PATCH /items/1
+Content-Type: application/json
+
+{
+  "price": 24.99
+}
+
 # Delete an item
 DELETE /items/1
 ```
 
-**Validation rules** for `POST` and `PUT`:
+**Validation rules** for `POST` and `PUT` (all required fields enforced):
 
 | Field | Rule |
 | ------------- | ----------------------------------------- |
@@ -185,6 +194,8 @@ DELETE /items/1
 | `category` | Required, non-empty string |
 | `price` | Required, positive number |
 | `description` | Optional, string |
+
+For `PATCH`, only the provided fields are validated against the same rules, and at least one field must be supplied.
 
 ### Example Requests
 
@@ -273,9 +284,9 @@ const CATEGORIES = [
 In `src/routes/items.js`, modify the constants:
 
 ```javascript
-const DEFAULT_LIMIT = 20;     // Default items per page
-const MAX_LIMIT = 200;        // Maximum items per page
-const MAX_SEARCH_LENGTH = 50; // Max search term length
+const DEFAULT_LIMIT = 10;      // Default items per page
+const MAX_LIMIT = 100;         // Maximum items per page
+const MAX_SEARCH_LENGTH = 100; // Max search term length
 ```
 
 ## Deploy to Render

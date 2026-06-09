@@ -7,7 +7,7 @@ const options = {
       title: "Pagination & Search API",
       version: "1.0.0",
       description:
-        "A RESTful API demonstrating pagination with `limit`/`skip` and regex-powered search over an SQLite database.",
+        "A RESTful API demonstrating pagination with `limit`/`skip` and SQL `LIKE`-powered search over an SQLite database.",
       contact: {
         name: "Serkanby",
         url: "https://serkanbayraktar.com/",

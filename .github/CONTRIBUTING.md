@@ -90,16 +90,17 @@ Make sure you have the following installed:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/REPOSITORY_NAME.git
+git clone https://github.com/YOUR_USERNAME/pagination-search-api.git
 
 # Navigate to project directory
-cd REPOSITORY_NAME
+cd pagination-search-api
 
-# Install dependencies (if applicable)
-# npm install / pip install -r requirements.txt / etc.
+# Install dependencies
+npm install
 
-# Start development server (if applicable)
-# npm start / python app.py / etc.
+# Seed the database and start the development server
+npm run seed
+npm run dev
 ```
 
 ## Style Guidelines

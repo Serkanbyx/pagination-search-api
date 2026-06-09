@@ -277,15 +277,17 @@ app.use((err, _req, res, _next) => {
 });
 
 const db = getDatabase();
-const count = db.prepare("SELECT COUNT(*) as count FROM items").get();
-if (count.count === 0) {
+const initialCount = db.prepare("SELECT COUNT(*) as count FROM items").get().count;
+if (initialCount === 0) {
   console.log("No items found. Auto-seeding database...");
   const { seed } = require("./seed");
   seed();
 }
 
+const itemCount = db.prepare("SELECT COUNT(*) as count FROM items").get().count;
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
-  console.log(`Items in DB: ${count.count}`);
+  console.log(`Items in DB: ${itemCount}`);
 });

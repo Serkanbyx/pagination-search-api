@@ -366,6 +366,106 @@ router.put("/:id", (req, res) => {
 /**
  * @swagger
  * /items/{id}:
+ *   patch:
+ *     summary: Partially update an existing item
+ *     tags: [Items]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Item ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 maxLength: 200
+ *               category:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *                 format: float
+ *                 minimum: 0.01
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Item updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   $ref: '#/components/schemas/Item'
+ *       400:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Item not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.patch("/:id", (req, res) => {
+  const db = getDatabase();
+  const id = parseInt(req.params.id, 10);
+
+  if (isNaN(id)) {
+    return res.status(400).json({ success: false, error: "Invalid item ID" });
+  }
+
+  const existing = db.prepare("SELECT * FROM items WHERE id = ?").get(id);
+  if (!existing) {
+    return res.status(404).json({ success: false, error: "Item not found" });
+  }
+
+  const allowedFields = ["name", "category", "price", "description"];
+  const providedFields = allowedFields.filter((field) => req.body[field] !== undefined);
+
+  if (providedFields.length === 0) {
+    return res.status(400).json({
+      success: false,
+      error: `At least one field is required: ${allowedFields.join(", ")}`,
+    });
+  }
+
+  const errors = validateItemInput(req.body, true);
+  if (errors.length > 0) {
+    return res.status(400).json({ success: false, error: errors.join("; ") });
+  }
+
+  const normalizeValue = (field, value) => {
+    if (field === "price") return value;
+    if (field === "description") return value?.trim() || null;
+    return value.trim();
+  };
+
+  const setClause = providedFields.map((field) => `${field} = ?`).join(", ");
+  const values = providedFields.map((field) => normalizeValue(field, req.body[field]));
+
+  db.prepare(`UPDATE items SET ${setClause} WHERE id = ?`).run(...values, id);
+
+  const item = db.prepare("SELECT * FROM items WHERE id = ?").get(id);
+
+  res.json({ success: true, data: item });
+});
+
+/**
+ * @swagger
+ * /items/{id}:
  *   delete:
  *     summary: Delete an item
  *     tags: [Items]

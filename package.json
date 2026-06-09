@@ -1,7 +1,7 @@
 {
   "name": "pagination-search-api",
   "version": "1.0.0",
-  "description": "REST API with pagination, regex search, SQLite, and Swagger docs",
+  "description": "REST API with pagination, SQL-powered search, SQLite, and Swagger docs",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
